@@ -36,12 +36,13 @@ const Dashboard = ({
               <div className="dashboard-feature-desc">Organize your tasks with Notion-style cards, color tags, and drag-and-drop.</div>
             </div>
           </div>
-          <div className="dashboard-feature">
-            <img src={require('../assets/habits-hero.png')} alt="Habits" className="dashboard-feature-img habits" />
+          <div className="dashboard-feature habits">
+            {/* Habits: text left, image right */}
             <div>
               <div className="dashboard-feature-title habits">Habits</div>
               <div className="dashboard-feature-desc">Track habits with streaks, emoji icons, and mini-heatmap.</div>
             </div>
+            <img src={require('../assets/habits-hero.png')} alt="Habits" className="dashboard-feature-img habits" />
           </div>
           <div className="dashboard-feature">
             <img src={require('../assets/calendar-hero.png')} alt="Calendar" className="dashboard-feature-img calendar" />

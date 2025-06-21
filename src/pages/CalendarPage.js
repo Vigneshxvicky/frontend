@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import DayCelebration from '../components/DayCelebration';
 import MiniHeatmap from '../components/MiniHeatmap';
 import '../App-habits-extra.css';
+import Footer from '../components/Footer';
 
 function getMonthDays(year, month) {
   return new Date(year, month + 1, 0).getDate();
@@ -274,6 +275,7 @@ const CalendarPage = ({ todos = [], habits = [] }) => {
         ))}
         {calendarCells}
       </div>
+
     </div>
   );
 };

@@ -33,7 +33,7 @@ const FireworkBg = () => {
       this.targetY = 80 + Math.random() * (canvas.height * 0.4);
       this.color = randomColor();
       this.radius = 2 + Math.random() * 2;
-      this.speed = 0.7 + Math.random() * 0.7; // SLOWER
+      this.speed = 1.5 + Math.random() * 1.5; // Slightly faster than slow version
       this.exploded = false;
       this.sparkle = Math.random() > 0.5;
     }
@@ -66,9 +66,9 @@ const FireworkBg = () => {
       this.color = color;
       this.radius = 1 + Math.random() * 2.2;
       this.angle = Math.random() * 2 * Math.PI;
-      this.speed = 0.4 + Math.random() * 0.7; // SLOWER
+      this.speed = 0.8 + Math.random() * 1.5; // Slightly faster
       this.alpha = 1;
-      this.decay = 0.003 + Math.random() * 0.006; // SLOWER
+      this.decay = 0.007 + Math.random() * 0.012; // Slightly faster
       this.sparkle = sparkle;
     }
     Particle.prototype.update = function () {
@@ -154,7 +154,7 @@ const FireworkBg = () => {
         top: 0,
         width: '100vw',
         height: '100vh',
-        zIndex: 0,
+        zIndex: -1,
         pointerEvents: 'none',
         filter: 'blur(0.5px) brightness(1.1)'
       }}

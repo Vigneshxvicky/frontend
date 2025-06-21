@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import '../components/comp_css/planner.css';
-import '../components/comp_css/planner-modal.css';
 
 const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -14,8 +13,6 @@ function getStartOfWeek(date = new Date()) {
 
 const PlannerPage = ({ todos = [], addTodo, editTodo, deleteTodo, moveTodo }) => {
   const [weekStart, setWeekStart] = useState(getStartOfWeek());
-  const [modalDay, setModalDay] = useState(null);
-  const [modalValue, setModalValue] = useState('');
 
   // Group todos by day
   const days = Array(7).fill().map((_, i) => {
@@ -54,43 +51,6 @@ const PlannerPage = ({ todos = [], addTodo, editTodo, deleteTodo, moveTodo }) =>
 
   return (
     <div className="planner-page">
-      {/* Modal for adding a task */}
-      {modalDay !== null && (
-        <div className="planner-modal-bg" onClick={() => setModalDay(null)}>
-          <div className="planner-modal" onClick={e => e.stopPropagation()}>
-            <h2>Add Task</h2>
-            <input
-              type="text"
-              autoFocus
-              placeholder="Task title..."
-              value={modalValue}
-              onChange={e => setModalValue(e.target.value)}
-              onKeyDown={e => {
-                if (e.key === 'Enter' && modalValue.trim()) {
-                  const dueDate = modalDay.date.toISOString().slice(0, 10);
-                  addTodo && addTodo(modalValue.trim(), dueDate);
-                  setModalDay(null);
-                  setModalValue('');
-                }
-              }}
-            />
-            <div className="planner-modal-actions">
-              <button
-                onClick={() => {
-                  if (modalValue.trim()) {
-                    const dueDate = modalDay.date.toISOString().slice(0, 10);
-                    addTodo && addTodo(modalValue.trim(), dueDate);
-                    setModalDay(null);
-                    setModalValue('');
-                  }
-                }}
-                disabled={!modalValue.trim()}
-              >Add</button>
-              <button className="cancel" onClick={() => { setModalDay(null); setModalValue(''); }}>Cancel</button>
-            </div>
-          </div>
-        </div>
-      )}
       <div className="planner-header">
         <button onClick={prevWeek}>&lt;</button>
         <span>Week of {weekStart.toLocaleDateString()}</span>
@@ -118,7 +78,13 @@ const PlannerPage = ({ todos = [], addTodo, editTodo, deleteTodo, moveTodo }) =>
                 </li>
               ))}
             </ul>
-            <button className="planner-add-btn" onClick={() => { setModalDay(day); setModalValue(''); }}>+ Add Task</button>
+            <button className="planner-add-btn" onClick={() => {
+              const title = prompt('New task:');
+              if (title && addTodo) {
+                const dueDate = day.date.toISOString().slice(0, 10);
+                addTodo(title, dueDate);
+              }
+            }}>+ Add Task</button>
           </div>
         ))}
       </div>

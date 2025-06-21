@@ -10,7 +10,6 @@ import Hero from './components/Hero';
 import TodosPage from './pages/TodosPage';
 import HabitsPage from './pages/HabitsPage';
 import CalendarPage from './pages/CalendarPage';
-import PlannerPage from './pages/PlannerPage';
 import ScrollRevealSection from './components/ScrollRevealSection';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -18,6 +17,8 @@ import ScrollProgressBar from './components/ScrollProgressBar';
 import todosHero from './assets/todos-hero.png';
 import habitsHero from './assets/habits-hero.png';
 import calendarHero from './assets/calendar-hero.png';
+import Footer from './components/Footer';
+import PlannerPage from './pages/PlannerPage';
 
 const SUGGESTIONS = [
   'Drink a glass of water',
@@ -202,7 +203,7 @@ function App() {
             <Hero />
             {/* Feature Section - outside Dashboard */}
             <div className="feature-section">
-              {/* Todos Feature */}
+              {/* Todos Feature - image left, text right */}
               <div className="feature-row feature-todos">
                 <div className="feature-img-col">
                   <img src={todosHero} alt="Todos" className="feature-img todos-img" />
@@ -214,19 +215,19 @@ function App() {
                   </div>
                 </div>
               </div>
-              {/* Habits Feature */}
-              <div className="feature-row feature-habits">
-                <div className="feature-img-col">
-                  <img src={habitsHero} alt="Habits" className="feature-img habits-img" />
-                </div>
+              {/* Habits Feature - image right, text left */}
+              <div className="feature-row reverse feature-habits">
                 <div className="feature-content">
                   <div className="feature-title habits-title">Habits</div>
                   <div className="feature-desc">
                     Build and track habits with streaks, emoji icons, mini-heatmap, and confetti celebrations for your progress.
                   </div>
                 </div>
+                <div className="feature-img-col">
+                  <img src={habitsHero} alt="Habits" className="feature-img habits-img" />
+                </div>
               </div>
-              {/* Calendar Feature */}
+              {/* Calendar Feature - image left, text right */}
               <div className="feature-row feature-calendar">
                 <div className="feature-img-col">
                   <img src={calendarHero} alt="Calendar" className="feature-img calendar-img" />
@@ -239,6 +240,7 @@ function App() {
                 </div>
               </div>
             </div>
+            <Footer />
             {/* Dashboard and feature sections below */}
             <ScrollRevealSection>
                 {/* <Dashboard
@@ -266,25 +268,30 @@ function App() {
             {/* <ScrollRevealSection><CalendarPage todos={todos} habits={(() => { try { return JSON.parse(localStorage.getItem('habits')) || []; } catch { return []; } })()} /></ScrollRevealSection> */}
           </>
         } />
-        <Route path="/dashboard" element={<Dashboard
-          onThemeChange={handleThemeChange}
-          currentTheme={currentTheme}
-          mascotMessage={mascotMessage}
-          leaderboard={null}
-          aiSuggestion={aiSuggestion}
-          quote={quote}
-          onAddSuggestion={() => addTodo(aiSuggestion)}
-          onVoiceInput={handleVoiceInput}
-          onMoodSelect={mood => setMascotMessage(`You feel ${mood}!`)}
-          moodStats={moodStats && typeof moodStats === 'object' ? Object.entries(moodStats).map(([m, v]) => `${m}: ${v}`).join(', ') : ''}
-          calendarTasks={null}
-          onReminderSet={() => alert('Reminders coming soon!')}
-          onShare={() => alert('Sharing coming soon!')}
-          habits={null}
-          onHabitCheck={() => alert('Habit tracking coming soon!')}
-          points={points}
-          level={level}
-        />} />
+        <Route path="/dashboard" element={
+          <>
+            <Dashboard
+              onThemeChange={handleThemeChange}
+              currentTheme={currentTheme}
+              mascotMessage={mascotMessage}
+              leaderboard={null}
+              aiSuggestion={aiSuggestion}
+              quote={quote}
+              onAddSuggestion={() => addTodo(aiSuggestion)}
+              onVoiceInput={handleVoiceInput}
+              onMoodSelect={mood => setMascotMessage(`You feel ${mood}!`)}
+              moodStats={moodStats && typeof moodStats === 'object' ? Object.entries(moodStats).map(([m, v]) => `${m}: ${v}`).join(', ') : ''}
+              calendarTasks={null}
+              onReminderSet={() => alert('Reminders coming soon!')}
+              onShare={() => alert('Sharing coming soon!')}
+              habits={null}
+              onHabitCheck={() => alert('Habit tracking coming soon!')}
+              points={points}
+              level={level}
+            />
+            <Footer />
+          </>
+        } />
         <Route path="/todos" element={<TodosPage
           todos={todos}
           addTodo={addTodo}
@@ -301,15 +308,27 @@ function App() {
         />} />
         <Route path="/habits" element={<HabitsPage habits={null} onHabitCheck={() => alert('Habit tracking coming soon!')} />} />
         <Route path="/calendar" element={<CalendarPage todos={todos} habits={(() => { try { return JSON.parse(localStorage.getItem('habits')) || []; } catch { return []; } })()} />} />
-        <Route path="/planner" element={<PlannerPage
-          todos={todos}
-          addTodo={addTodo}
-          editTodo={editTodo}
-          deleteTodo={deleteTodo}
-          moveTodo={(id, dueDate) => editTodo(id, undefined, dueDate)}
-        />} />
         <Route path="/gamify" element={null} />
         <Route path="/settings" element={null} />
+        <Route
+          path="/planner"
+          element={
+            <PlannerPage
+              todos={todos}
+              addTodo={addTodo}
+              editTodo={editTodo}
+              deleteTodo={deleteTodo}
+              moveTodo={
+                (id, dueDate) => {
+                  // You may need to implement this logic if not present
+                  const todo = todos.find(t => t._id === id);
+                  if (!todo) return;
+                  editTodo(id, todo.title, dueDate, todo.priority);
+                }
+              }
+            />
+          }
+        />
       </Routes>
       <ScrollProgressBar />
       {/* <ScrollFloatingOrb /> */}
