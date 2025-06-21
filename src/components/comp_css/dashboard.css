@@ -1,0 +1,131 @@
+Dashboard Styles .dashboard-long {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  padding-bottom: 80px;
+}
+.dashboard-nav {
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.92);
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  padding: 18px 0 8px 0;
+  z-index: 10;
+  border-bottom: 1px solid #e0e7ff;
+  box-shadow: 0 2px 8px rgba(185, 185, 185, 0.06);
+}
+.dashboard-nav a {
+  color: #6366f1;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+.dashboard-nav a:hover {
+  background: #ffffff;
+  color: #232946;
+}
+.dashboard-section {
+  width: 50%;
+  max-width: 90%;
+  margin: 36px auto 0 auto;
+  background: none;
+  border-radius: 18px;
+  box-shadow: none;
+  padding: 32px 24px 24px 24px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.dashboard-section h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #6366f1;
+  margin-bottom: 10px;
+}
+.dashboard-essentials {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+  justify-content: center;
+}
+.dashboard-feature {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 260px;
+  margin-bottom: 8px;
+}
+.dashboard-feature-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 2px 12px rgba(116, 119, 255, 0.08);
+}
+.dashboard-feature-title {
+  font-weight: 900;
+  font-size: 2rem;
+  margin-bottom: 4px;
+}
+.dashboard-feature-title.todos {
+  color: #6366f1;
+}
+.dashboard-feature-title.habits {
+  color: #10b981;
+}
+.dashboard-feature-title.calendar {
+  color: #f59e42;
+}
+.dashboard-feature-desc {
+  font-size: 1.1rem;
+  color: #232946;
+  font-weight: 500;
+  line-height: 1.5;
+}
+@media (max-width: 600px) {
+  .dashboard-section {
+    max-width: 98vw;
+    padding: 18px 2vw 18px 2vw;
+    margin: 18px auto 0 auto;
+    border-radius: 10px;
+  }
+  .dashboard-nav {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 0 4px 0;
+  }
+}
+@media (max-width: 800px) {
+  .dashboard-essentials {
+    flex-direction: column;
+    gap: 24px;
+    align-items: stretch;
+  }
+  .dashboard-feature {
+    flex-direction: row;
+    gap: 12px;
+    min-width: 0;
+  }
+  .dashboard-feature-img {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+  }
+  .dashboard-feature-title {
+    font-size: 1.2rem;
+  }
+  .dashboard-feature-desc {
+    font-size: 0.98rem;
+  }
+}

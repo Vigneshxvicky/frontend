@@ -3,13 +3,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import api from './services/api';
 import './App.css';
 import FireworkBg from './components/FireworkBg';
-import Walkthrough from './components/Walkthrough';
+// import Walkthrough from './components/Walkthrough';
 import Dashboard from './components/Dashboard';
 import MainNavbar from './components/MainNavbar';
 import Hero from './components/Hero';
 import TodosPage from './pages/TodosPage';
 import HabitsPage from './pages/HabitsPage';
 import CalendarPage from './pages/CalendarPage';
+import PlannerPage from './pages/PlannerPage';
 import ScrollRevealSection from './components/ScrollRevealSection';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -199,36 +200,55 @@ function App() {
         <Route path="/" element={
           <>
             <Hero />
-            <ScrollRevealSection>
-              <Dashboard
-                aiSuggestion={aiSuggestion}
-                quote={quote}
-                points={points}
-                level={level}
-              >
-                <div style={{textAlign:'center',margin:'48px 0'}}>
-                  <h1 style={{fontSize:'2.8rem',fontWeight:900,letterSpacing:1.5,color:'#6366f1',marginBottom:18}}>Life Hub</h1>
-                  <p style={{fontSize:'1.35rem',color:'#232946',maxWidth:600,margin:'0 auto 32px auto',fontWeight:500}}>
-                    All-in-one productivity: Notion-style Todos, Google Calendar, and more. Organize your life, your way.
-                  </p>
-                  <div style={{display:'flex',justifyContent:'center',gap:40,flexWrap:'wrap'}}>
-                    <div style={{textAlign:'center'}}>
-                      <img src={todosHero} alt="Todos" style={{width:120,borderRadius:16,boxShadow:'0 2px 12px rgba(99,102,241,0.10)'}} />
-                      <div style={{fontWeight:700,fontSize:'1.1rem',marginTop:10}}>Todos</div>
-                    </div>
-                    <div style={{textAlign:'center'}}>
-                      <img src={habitsHero} alt="Habits" style={{width:120,borderRadius:16,boxShadow:'0 2px 12px rgba(99,102,241,0.10)'}} />
-                      <div style={{fontWeight:700,fontSize:'1.1rem',marginTop:10}}>Habits</div>
-                    </div>
-                    <div style={{textAlign:'center'}}>
-                      <img src={calendarHero} alt="Calendar" style={{width:120,borderRadius:16,boxShadow:'0 2px 12px rgba(99,102,241,0.10)'}} />
-                      <div style={{fontWeight:700,fontSize:'1.1rem',marginTop:10}}>Calendar</div>
-                    </div>
+            {/* Feature Section - outside Dashboard */}
+            <div className="feature-section">
+              {/* Todos Feature */}
+              <div className="feature-row feature-todos">
+                <div className="feature-img-col">
+                  <img src={todosHero} alt="Todos" className="feature-img todos-img" />
+                </div>
+                <div className="feature-content">
+                  <div className="feature-title todos-title">Todos</div>
+                  <div className="feature-desc">
+                    Organize your tasks with Notion-style cards, color tags, drag-and-drop, and a beautiful, simple interface.
                   </div>
-                </div>  
-              </Dashboard>
+                </div>
+              </div>
+              {/* Habits Feature */}
+              <div className="feature-row feature-habits">
+                <div className="feature-img-col">
+                  <img src={habitsHero} alt="Habits" className="feature-img habits-img" />
+                </div>
+                <div className="feature-content">
+                  <div className="feature-title habits-title">Habits</div>
+                  <div className="feature-desc">
+                    Build and track habits with streaks, emoji icons, mini-heatmap, and confetti celebrations for your progress.
+                  </div>
+                </div>
+              </div>
+              {/* Calendar Feature */}
+              <div className="feature-row feature-calendar">
+                <div className="feature-img-col">
+                  <img src={calendarHero} alt="Calendar" className="feature-img calendar-img" />
+                </div>
+                <div className="feature-content">
+                  <div className="feature-title calendar-title">Calendar</div>
+                  <div className="feature-desc">
+                    Plan your days with a modern calendar, reminders, mini-heatmap, and all your tasks and habits in one view.
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* Dashboard and feature sections below */}
+            <ScrollRevealSection>
+                {/* <Dashboard
+                  aiSuggestion={aiSuggestion}
+                  quote={quote}
+                  points={points}
+                  level={level}
+                /> */}
             </ScrollRevealSection>
-            <ScrollRevealSection><TodosPage
+            {/* <ScrollRevealSection><TodosPage
               todos={todos}
               addTodo={addTodo}
               editTodo={editTodo}
@@ -241,9 +261,9 @@ function App() {
               filter={filter}
               setFilter={setFilter}
               clearCompleted={clearCompleted}
-            /></ScrollRevealSection>
-            <ScrollRevealSection><HabitsPage habits={null} onHabitCheck={() => alert('Habit tracking coming soon!')} /></ScrollRevealSection>
-            <ScrollRevealSection><CalendarPage todos={todos} habits={(() => { try { return JSON.parse(localStorage.getItem('habits')) || []; } catch { return []; } })()} /></ScrollRevealSection>
+            /></ScrollRevealSection> */}
+            {/* <ScrollRevealSection><HabitsPage habits={null} onHabitCheck={() => alert('Habit tracking coming soon!')} /></ScrollRevealSection> */}
+            {/* <ScrollRevealSection><CalendarPage todos={todos} habits={(() => { try { return JSON.parse(localStorage.getItem('habits')) || []; } catch { return []; } })()} /></ScrollRevealSection> */}
           </>
         } />
         <Route path="/dashboard" element={<Dashboard
@@ -281,6 +301,13 @@ function App() {
         />} />
         <Route path="/habits" element={<HabitsPage habits={null} onHabitCheck={() => alert('Habit tracking coming soon!')} />} />
         <Route path="/calendar" element={<CalendarPage todos={todos} habits={(() => { try { return JSON.parse(localStorage.getItem('habits')) || []; } catch { return []; } })()} />} />
+        <Route path="/planner" element={<PlannerPage
+          todos={todos}
+          addTodo={addTodo}
+          editTodo={editTodo}
+          deleteTodo={deleteTodo}
+          moveTodo={(id, dueDate) => editTodo(id, undefined, dueDate)}
+        />} />
         <Route path="/gamify" element={null} />
         <Route path="/settings" element={null} />
       </Routes>

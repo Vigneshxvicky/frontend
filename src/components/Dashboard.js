@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './comp_css/dashboard.css';
+
 const Dashboard = ({
   aiSuggestion,
   quote,
@@ -26,18 +28,31 @@ const Dashboard = ({
       </section>
       <section className="dashboard-section">
         <h2>Essentials</h2>
-        <ul style={{display:'flex',gap:24,flexWrap:'wrap',marginTop:12}}>
-          <li><a href="/todos">Todos</a></li>
-          <li><a href="/habits">Habits</a></li>
-          <li><a href="/calendar">Calendar</a></li>
-          <li><a href="/gamify">Gamify</a></li>
-          <li><a href="/settings">Settings</a></li>
-        </ul>
+        <div className="dashboard-essentials">
+          <div className="dashboard-feature">
+            <img src={require('../assets/todos-hero.png')} alt="Todos" className="dashboard-feature-img todos" />
+            <div>
+              <div className="dashboard-feature-title todos">Todos</div>
+              <div className="dashboard-feature-desc">Organize your tasks with Notion-style cards, color tags, and drag-and-drop.</div>
+            </div>
+          </div>
+          <div className="dashboard-feature">
+            <img src={require('../assets/habits-hero.png')} alt="Habits" className="dashboard-feature-img habits" />
+            <div>
+              <div className="dashboard-feature-title habits">Habits</div>
+              <div className="dashboard-feature-desc">Track habits with streaks, emoji icons, and mini-heatmap.</div>
+            </div>
+          </div>
+          <div className="dashboard-feature">
+            <img src={require('../assets/calendar-hero.png')} alt="Calendar" className="dashboard-feature-img calendar" />
+            <div>
+              <div className="dashboard-feature-title calendar">Calendar</div>
+              <div className="dashboard-feature-desc">Plan your days with a modern calendar and reminders.</div>
+            </div>
+          </div>
+        </div>
       </section>
-      <section className="dashboard-section">
-        <h2>Your Todos</h2>
-        {children}
-      </section>
+
     </div>
   );
 };

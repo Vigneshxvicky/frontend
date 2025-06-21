@@ -10,7 +10,7 @@ const FireworkBg = () => {
     const ctx = canvas.getContext('2d');
     let fireworks = [];
     let particles = [];
-    let animationFrameId;
+    let animationFrameId; 
 
     function randomColor() {
       const colors = [
@@ -33,7 +33,7 @@ const FireworkBg = () => {
       this.targetY = 80 + Math.random() * (canvas.height * 0.4);
       this.color = randomColor();
       this.radius = 2 + Math.random() * 2;
-      this.speed = 3 + Math.random() * 2;
+      this.speed = 0.7 + Math.random() * 0.7; // SLOWER
       this.exploded = false;
       this.sparkle = Math.random() > 0.5;
     }
@@ -66,9 +66,9 @@ const FireworkBg = () => {
       this.color = color;
       this.radius = 1 + Math.random() * 2.2;
       this.angle = Math.random() * 2 * Math.PI;
-      this.speed = 1.5 + Math.random() * 3.5;
+      this.speed = 0.4 + Math.random() * 0.7; // SLOWER
       this.alpha = 1;
-      this.decay = 0.012 + Math.random() * 0.025;
+      this.decay = 0.003 + Math.random() * 0.006; // SLOWER
       this.sparkle = sparkle;
     }
     Particle.prototype.update = function () {

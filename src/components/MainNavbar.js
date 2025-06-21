@@ -19,6 +19,7 @@ const MainNavbar = () => {
         <Link to="/">Dashboard</Link>
         <Link to="/todos">Todos</Link>
         <Link to="/habits">Habits</Link>
+        <Link to="/planner">Planner</Link>
         <Link to="/calendar">Calendar</Link>
       </div>
     </nav>
