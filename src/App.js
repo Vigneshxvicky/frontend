@@ -14,6 +14,9 @@ import ScrollRevealSection from './components/ScrollRevealSection';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ScrollProgressBar from './components/ScrollProgressBar';
+import todosHero from './assets/todos-hero.png';
+import habitsHero from './assets/habits-hero.png';
+import calendarHero from './assets/calendar-hero.png';
 
 const SUGGESTIONS = [
   'Drink a glass of water',
@@ -190,38 +193,41 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ScrollProgressBar />
       <MainNavbar />
-      {showWalk && <Walkthrough step={walkStep} onNext={handleNextWalk} onClose={handleCloseWalk} isLast={walkStep === 3} visible={showWalk} />}
-      <div className="animated-bg">
-        <div className="blob blob1"></div>
-        <div className="blob blob2"></div>
-        <div className="blob blob3"></div>
-      </div>
       <FireworkBg />
       <Routes>
         <Route path="/" element={
           <>
             <Hero />
-            <ScrollRevealSection><Dashboard
-              onThemeChange={handleThemeChange}
-              currentTheme={currentTheme}
-              mascotMessage={mascotMessage}
-              leaderboard={null}
-              aiSuggestion={aiSuggestion}
-              quote={quote}
-              onAddSuggestion={() => addTodo(aiSuggestion)}
-              onVoiceInput={handleVoiceInput}
-              onMoodSelect={mood => setMascotMessage(`You feel ${mood}!`)}
-              moodStats={moodStats && typeof moodStats === 'object' ? Object.entries(moodStats).map(([m, v]) => `${m}: ${v}`).join(', ') : ''}
-              calendarTasks={null}
-              onReminderSet={() => alert('Reminders coming soon!')}
-              onShare={() => alert('Sharing coming soon!')}
-              habits={null}
-              onHabitCheck={() => alert('Habit tracking coming soon!')}
-              points={points}
-              level={level}
-            /></ScrollRevealSection>
+            <ScrollRevealSection>
+              <Dashboard
+                aiSuggestion={aiSuggestion}
+                quote={quote}
+                points={points}
+                level={level}
+              >
+                <div style={{textAlign:'center',margin:'48px 0'}}>
+                  <h1 style={{fontSize:'2.8rem',fontWeight:900,letterSpacing:1.5,color:'#6366f1',marginBottom:18}}>Life Hub</h1>
+                  <p style={{fontSize:'1.35rem',color:'#232946',maxWidth:600,margin:'0 auto 32px auto',fontWeight:500}}>
+                    All-in-one productivity: Notion-style Todos, Google Calendar, and more. Organize your life, your way.
+                  </p>
+                  <div style={{display:'flex',justifyContent:'center',gap:40,flexWrap:'wrap'}}>
+                    <div style={{textAlign:'center'}}>
+                      <img src={todosHero} alt="Todos" style={{width:120,borderRadius:16,boxShadow:'0 2px 12px rgba(99,102,241,0.10)'}} />
+                      <div style={{fontWeight:700,fontSize:'1.1rem',marginTop:10}}>Todos</div>
+                    </div>
+                    <div style={{textAlign:'center'}}>
+                      <img src={habitsHero} alt="Habits" style={{width:120,borderRadius:16,boxShadow:'0 2px 12px rgba(99,102,241,0.10)'}} />
+                      <div style={{fontWeight:700,fontSize:'1.1rem',marginTop:10}}>Habits</div>
+                    </div>
+                    <div style={{textAlign:'center'}}>
+                      <img src={calendarHero} alt="Calendar" style={{width:120,borderRadius:16,boxShadow:'0 2px 12px rgba(99,102,241,0.10)'}} />
+                      <div style={{fontWeight:700,fontSize:'1.1rem',marginTop:10}}>Calendar</div>
+                    </div>
+                  </div>
+                </div>  
+              </Dashboard>
+            </ScrollRevealSection>
             <ScrollRevealSection><TodosPage
               todos={todos}
               addTodo={addTodo}
@@ -278,6 +284,8 @@ function App() {
         <Route path="/gamify" element={null} />
         <Route path="/settings" element={null} />
       </Routes>
+      <ScrollProgressBar />
+      {/* <ScrollFloatingOrb /> */}
     </BrowserRouter>
   );
 }
