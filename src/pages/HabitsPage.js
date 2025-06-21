@@ -70,9 +70,11 @@ const HabitsPage = () => {
   return (
     <div className="app-container">
       <h1>Habits</h1>
-      <button onClick={addHabit}>Add Habit</button>
-      <button onClick={resetHabits} style={{marginLeft:8}}>Reset</button>
-      <ul style={{marginTop: 20}}>
+      <div style={{display:'flex',gap:12,marginBottom:18}}>
+        <button onClick={addHabit} style={{background:'linear-gradient(90deg,#6366f1 60%,#38bdf8 100%)',color:'#fff',border:'none',borderRadius:8,padding:'10px 22px',fontWeight:700,fontSize:'1rem',cursor:'pointer',boxShadow:'0 2px 8px rgba(99,102,241,0.08)'}}>Add Habit</button>
+        <button onClick={resetHabits} style={{background:'#ececf1',color:'#232946',border:'none',borderRadius:8,padding:'10px 22px',fontWeight:700,fontSize:'1rem',cursor:'pointer'}}>Reset</button>
+      </div>
+      <ul style={{marginTop: 10}}>
         {habits.map(habit => (
           <li key={habit.id} style={{marginBottom: 10,display:'flex',alignItems:'center',gap:8}}>
             <label style={{flex:1}}>
@@ -85,8 +87,8 @@ const HabitsPage = () => {
               <span style={{marginLeft: 8, textDecoration: isToday(habit.lastChecked) ? 'line-through' : 'none'}}>{habit.name}</span>
               <span style={{marginLeft: 16, color:'#888'}}>🔥 {habit.streak} day streak</span>
             </label>
-            <button onClick={()=>viewHistory(habit)} style={{fontSize:12,padding:'4px 10px',borderRadius:6,border:'none',background:'#ececf1',color:'#232946',fontWeight:700,cursor:'pointer'}}>History</button>
-            <button onClick={()=>deleteHabit(habit.id)} style={{fontSize:12,padding:'4px 10px',borderRadius:6,border:'none',background:'#fff',color:'#d72660',fontWeight:700,cursor:'pointer'}}>Delete</button>
+            <button onClick={()=>viewHistory(habit)} style={{fontSize:12,padding:'6px 14px',borderRadius:6,border:'none',background:'#ececf1',color:'#232946',fontWeight:700,cursor:'pointer'}}>History</button>
+            <button onClick={()=>deleteHabit(habit.id)} style={{fontSize:12,padding:'6px 14px',borderRadius:6,border:'none',background:'#fff',color:'#d72660',fontWeight:700,cursor:'pointer'}}>Delete</button>
           </li>
         ))}
       </ul>

@@ -9,6 +9,12 @@ body {
   padding: 0;
   min-height: 100vh;
   overflow-x: hidden;
+  filter: grayscale(1);
+  transition: filter 1.2s cubic-bezier(.4, 0, .2, 1);
+}
+
+body.color-revealed {
+  filter: none;
 }
 
 /* Animated floating blobs background */
@@ -75,7 +81,7 @@ body {
   left: auto;
   transform: none;
   padding: 40px 28px 28px 28px;
-  max-width:90%;
+  max-width: 90%;
   width: 96vw;
   z-index: 1;
   transition: background 0.3s, box-shadow 0.3s;
@@ -125,17 +131,17 @@ h1,
   padding: 14px;
   border-radius: 12px;
   border: none;
-font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
   background: rgba(255, 255, 255, 0.7);
   box-shadow: 0 1px 6px rgba(60, 72, 100, 0.06);
   margin-bottom: 0;
   transition: box-shadow 0.2s, background 0.2s;
 }
 
-.date-picker{
-    padding-left: 10px;
-    padding-right: 0px;
-    margin-right: 53px;
+.date-picker {
+  padding-left: 10px;
+  padding-right: 0px;
+  margin-right: 53px;
 }
 
 .todo-input:focus,
@@ -154,7 +160,7 @@ font-family: "Inter", "Segoe UI", Arial, sans-serif;
   background: linear-gradient(90deg, #6366f1 60%, #38bdf8 100%);
   color: #fff;
   border: none;
-  box-shadow: 0 2px 8px rgba(99,102,241,0.08);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
 }
 .add-btn:hover,
 .filter-btn:hover,
@@ -228,7 +234,7 @@ font-family: "Inter", "Segoe UI", Arial, sans-serif;
   backdrop-filter: blur(2px);
 }
 .tour-guide-card {
-  background: rgba(255,255,255,0.95);
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 18px;
   box-shadow: 0 8px 32px rgba(60, 72, 100, 0.18);
   padding: 32px 24px 24px 24px;
@@ -236,11 +242,17 @@ font-family: "Inter", "Segoe UI", Arial, sans-serif;
   width: 90vw;
   text-align: center;
   z-index: 10001;
-  animation: popIn 0.4s cubic-bezier(.68,-0.55,.27,1.55);
+  animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 @keyframes popIn {
-  0% { transform: scale(0.7); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 .tour-guide-card h2 {
   font-size: 1.4rem;
@@ -276,20 +288,23 @@ font-family: "Inter", "Segoe UI", Arial, sans-serif;
 /* Walkthrough Styles */
 .walkthrough-overlay {
   position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background: rgba(30, 41, 59, 0.18);
   z-index: 10020;
   pointer-events: none;
 }
 .walkthrough-card {
-  background: rgba(255,255,255,0.98);
+  background: rgba(255, 255, 255, 0.98);
   border-radius: 18px;
   box-shadow: 0 8px 32px rgba(60, 72, 100, 0.18);
   padding: 28px 18px 18px 18px;
   text-align: center;
   z-index: 10021;
   pointer-events: auto;
-  animation: popIn 0.4s cubic-bezier(.68,-0.55,.27,1.55);
+  animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 .walkthrough-card h2 {
   font-size: 1.2rem;
@@ -327,7 +342,7 @@ font-family: "Inter", "Segoe UI", Arial, sans-serif;
 .dashboard-nav {
   position: sticky;
   top: 0;
-  background: rgba(255,255,255,0.92);
+  background: rgba(255, 255, 255, 0.92);
   display: flex;
   gap: 18px;
   justify-content: center;
@@ -352,9 +367,9 @@ font-family: "Inter", "Segoe UI", Arial, sans-serif;
   width: 100%;
   max-width: 600px;
   margin: 36px auto 0 auto;
-  background: rgba(255,255,255,0.82);
+  background: rgba(255, 255, 255, 0.82);
   border-radius: 18px;
-  box-shadow: 0 4px 16px rgba(60, 72, 100, 0.10);
+  box-shadow: 0 4px 16px rgba(60, 72, 100, 0.1);
   padding: 32px 24px 24px 24px;
   position: relative;
   z-index: 1;
@@ -430,7 +445,8 @@ font-family: "Inter", "Segoe UI", Arial, sans-serif;
     gap: 0;
     max-width: 98vw;
   }
-  .sidebar, .main-section {
+  .sidebar,
+  .main-section {
     grid-column: span 1;
     border-radius: 12px;
     padding: 14px 8px;
@@ -444,7 +460,7 @@ body::before {
 
 .main-navbar {
   width: 100vw;
-  background: rgba(255,255,255,0.96);
+  background: rgba(255, 255, 255, 0.96);
   display: flex;
   gap: 18px;
   justify-content: center;
@@ -469,50 +485,93 @@ body::before {
   color: #232946;
 }
 
-.main-content-layout {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  grid-auto-rows: minmax(180px, auto);
-  gap: 32px;
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  align-items: start;
-}
-.sidebar {
-  grid-column: span 1;
-  background: rgba(255,255,255,0.85);
-  border-radius: 18px;
-  box-shadow: 0 4px 16px rgba(60, 72, 100, 0.10);
-  padding: 24px 18px;
+.main-navbar.enhanced-navbar {
   display: flex;
-  flex-direction: column;
-  gap: 18px;
-  min-width: 0;
-}
-.main-section {
-  grid-column: span 2;
-  background: rgba(255,255,255,0.82);
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.08),
+    0 1.5px 4px 0 rgba(0, 0, 0, 0.04);
   border-radius: 18px;
-  box-shadow: 0 4px 16px rgba(60, 72, 100, 0.10);
-  padding: 32px 24px 24px 24px;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  width: 100%;
+  padding: 0.75rem 2rem;
+  margin: 1.5rem auto 2.5rem auto;
+  max-width: 900px;
+  width: 95%;
+  position: relative;
+  z-index: 10;
+  transition: box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.25s cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 0.25s;
 }
 
-/* GOD-LEVEL MODERN STYLES FOR ALL PAGES */
+.main-navbar.enhanced-navbar.navbar-scrolled {
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 8px 32px 0 rgba(60, 72, 100, 0.18),
+    0 2px 8px 0 rgba(67, 56, 202, 0.08);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  backdrop-filter: blur(12px) saturate(1.2);
+}
+
+.navbar-brand {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #2d3748;
+  font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+  margin-right: 2rem;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar-links a {
+  color: #374151;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 0.4rem 1.1rem;
+  border-radius: 8px;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+}
+
+.navbar-links a:hover,
+.navbar-links a:focus {
+  background: #e0e7ff;
+  color: #4338ca;
+  box-shadow: 0 2px 8px 0 rgba(67, 56, 202, 0.08);
+}
+
+@media (max-width: 600px) {
+  .main-navbar.enhanced-navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 1rem;
+    max-width: 99vw;
+  }
+  .navbar-brand {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+  .navbar-links {
+    gap: 1rem;
+  }
+  .navbar-links a {
+    font-size: 1rem;
+    padding: 0.3rem 0.7rem;
+  }
+}
+
+/* ...existing styles... */
 
 /* HabitsPage */
 .habits-list {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
-  background: rgba(255,255,255,0.92);
+  background: rgba(255, 255, 255, 0.92);
   border-radius: 18px;
-  box-shadow: 0 4px 16px rgba(99,102,241,0.10);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1);
   padding: 32px 24px 24px 24px;
   display: flex;
   flex-direction: column;
@@ -527,7 +586,7 @@ body::before {
   margin-bottom: 8px;
   font-size: 1.08rem;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(99,102,241,0.06);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.06);
   transition: background 0.2s;
 }
 .habits-list li input[type="checkbox"] {
@@ -556,7 +615,7 @@ body::before {
 .calendar-day {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(99,102,241,0.06);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.06);
   padding: 10px 8px 8px 8px;
   min-height: 90px;
   display: flex;
@@ -599,14 +658,15 @@ body::before {
   margin: 0 auto 24px auto;
   border-radius: 14px;
   background: #f0f4ff;
-  box-shadow: 0 2px 8px rgba(99,102,241,0.06);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.06);
   padding: 18px 12px;
 }
 .gamify-leaderboard table {
   width: 100%;
   border-collapse: collapse;
 }
-.gamify-leaderboard th, .gamify-leaderboard td {
+.gamify-leaderboard th,
+.gamify-leaderboard td {
   padding: 8px 6px;
   text-align: center;
   font-size: 1.05rem;
@@ -632,7 +692,7 @@ body::before {
 .gamify-achievement {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(99,102,241,0.06);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.06);
   padding: 16px 18px;
   text-align: center;
   min-width: 120px;
@@ -654,7 +714,7 @@ body::before {
 .settings-section {
   background: #fff;
   border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(99,102,241,0.06);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.06);
   padding: 24px 18px;
   margin-bottom: 18px;
   width: 100%;
@@ -680,4 +740,10 @@ body::before {
 }
 .settings-section button:hover {
   background: #232946;
+}
+
+/* Scroll Reveal Styles */
+.scroll-reveal-section {
+  /* Remove old opacity/transform, let AOS handle animation */
+  will-change: auto;
 }

@@ -25,8 +25,12 @@ const CalendarPage = ({ todos = [], habits = [] }) => {
   const addReminder = (day) => {
     const text = prompt(`Add reminder for ${currentYear}-${currentMonth + 1}-${day}`);
     if (text) {
-      setReminders([...reminders, { day, month: currentMonth, year: currentYear, text }]);
+      setReminders([...reminders, { day, month: currentMonth, year: currentYear, text, id: Date.now() }]);
     }
+  };
+
+  const removeReminder = (id) => {
+    setReminders(reminders.filter((r) => r.id !== id));
   };
 
   const prevMonth = () => {
@@ -96,7 +100,24 @@ const CalendarPage = ({ todos = [], habits = [] }) => {
           {reminders
             .filter((r) => r.day === i && r.month === currentMonth && r.year === currentYear)
             .map((r, idx) => (
-              <li key={idx}>🔔 {r.text}</li>
+              <li key={r.id} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span>🔔 {r.text}</span>
+                <button
+                  onClick={() => removeReminder(r.id)}
+                  style={{
+                    marginLeft: 4,
+                    background: 'none',
+                    border: 'none',
+                    color: '#d72660',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    fontSize: 14,
+                  }}
+                  title="Remove"
+                >
+                  ✕
+                </button>
+              </li>
             ))}
           {getTodosForDay(i).map((t, idx) => (
             <li key={'todo' + idx} style={{ color: '#d72660' }}>

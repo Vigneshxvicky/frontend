@@ -10,6 +10,10 @@ import Hero from './components/Hero';
 import TodosPage from './pages/TodosPage';
 import HabitsPage from './pages/HabitsPage';
 import CalendarPage from './pages/CalendarPage';
+import ScrollRevealSection from './components/ScrollRevealSection';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import ScrollProgressBar from './components/ScrollProgressBar';
 
 const SUGGESTIONS = [
   'Drink a glass of water',
@@ -78,6 +82,7 @@ function App() {
 
   useEffect(() => {
     fetchTodos();
+    AOS.init({ duration: 900, once: true, offset: 80 });
   }, []);
 
   // Add todo with mood
@@ -185,6 +190,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollProgressBar />
       <MainNavbar />
       {showWalk && <Walkthrough step={walkStep} onNext={handleNextWalk} onClose={handleCloseWalk} isLast={walkStep === 3} visible={showWalk} />}
       <div className="animated-bg">
@@ -194,52 +200,81 @@ function App() {
       </div>
       <FireworkBg />
       <Routes>
-        <Route path="/" element={<Hero />} />
-        <Route path="/dashboard" element={
-          <Dashboard
-            onThemeChange={handleThemeChange}
-            currentTheme={currentTheme}
-            mascotMessage={mascotMessage}
-            leaderboard={null}
-            aiSuggestion={aiSuggestion}
-            quote={quote}
-            onAddSuggestion={() => addTodo(aiSuggestion)}
-            onVoiceInput={handleVoiceInput}
-            onMoodSelect={mood => setMascotMessage(`You feel ${mood}!`)}
-            moodStats={moodStats && typeof moodStats === 'object' ? Object.entries(moodStats).map(([m, v]) => `${m}: ${v}`).join(', ') : ''}
-            calendarTasks={null}
-            onReminderSet={() => alert('Reminders coming soon!')}
-            onShare={() => alert('Sharing coming soon!')}
-            habits={null}
-            onHabitCheck={() => alert('Habit tracking coming soon!')}
-            points={points}
-            level={level}
-          >
-            {/* Optionally, you can add dashboard-specific children here */}
-          </Dashboard>
+        <Route path="/" element={
+          <>
+            <Hero />
+            <ScrollRevealSection><Dashboard
+              onThemeChange={handleThemeChange}
+              currentTheme={currentTheme}
+              mascotMessage={mascotMessage}
+              leaderboard={null}
+              aiSuggestion={aiSuggestion}
+              quote={quote}
+              onAddSuggestion={() => addTodo(aiSuggestion)}
+              onVoiceInput={handleVoiceInput}
+              onMoodSelect={mood => setMascotMessage(`You feel ${mood}!`)}
+              moodStats={moodStats && typeof moodStats === 'object' ? Object.entries(moodStats).map(([m, v]) => `${m}: ${v}`).join(', ') : ''}
+              calendarTasks={null}
+              onReminderSet={() => alert('Reminders coming soon!')}
+              onShare={() => alert('Sharing coming soon!')}
+              habits={null}
+              onHabitCheck={() => alert('Habit tracking coming soon!')}
+              points={points}
+              level={level}
+            /></ScrollRevealSection>
+            <ScrollRevealSection><TodosPage
+              todos={todos}
+              addTodo={addTodo}
+              editTodo={editTodo}
+              deleteTodo={deleteTodo}
+              toggleCompletion={toggleCompletion}
+              search={search}
+              setSearch={setSearch}
+              sort={sort}
+              setSort={setSort}
+              filter={filter}
+              setFilter={setFilter}
+              clearCompleted={clearCompleted}
+            /></ScrollRevealSection>
+            <ScrollRevealSection><HabitsPage habits={null} onHabitCheck={() => alert('Habit tracking coming soon!')} /></ScrollRevealSection>
+            <ScrollRevealSection><CalendarPage todos={todos} habits={(() => { try { return JSON.parse(localStorage.getItem('habits')) || []; } catch { return []; } })()} /></ScrollRevealSection>
+          </>
         } />
-        <Route path="/todos" element={
-          <TodosPage
-            todos={todos}
-            addTodo={addTodo}
-            editTodo={editTodo}
-            deleteTodo={deleteTodo}
-            toggleCompletion={toggleCompletion}
-            search={search}
-            setSearch={setSearch}
-            sort={sort}
-            setSort={setSort}
-            filter={filter}
-            setFilter={setFilter}
-            clearCompleted={clearCompleted}
-          />
-        } />
-        <Route path="/habits" element={
-          <HabitsPage habits={null} onHabitCheck={() => alert('Habit tracking coming soon!')} />
-        } />
-        <Route path="/calendar" element={
-          <CalendarPage todos={todos} habits={(() => { try { return JSON.parse(localStorage.getItem('habits')) || []; } catch { return []; } })()} />
-        } />
+        <Route path="/dashboard" element={<Dashboard
+          onThemeChange={handleThemeChange}
+          currentTheme={currentTheme}
+          mascotMessage={mascotMessage}
+          leaderboard={null}
+          aiSuggestion={aiSuggestion}
+          quote={quote}
+          onAddSuggestion={() => addTodo(aiSuggestion)}
+          onVoiceInput={handleVoiceInput}
+          onMoodSelect={mood => setMascotMessage(`You feel ${mood}!`)}
+          moodStats={moodStats && typeof moodStats === 'object' ? Object.entries(moodStats).map(([m, v]) => `${m}: ${v}`).join(', ') : ''}
+          calendarTasks={null}
+          onReminderSet={() => alert('Reminders coming soon!')}
+          onShare={() => alert('Sharing coming soon!')}
+          habits={null}
+          onHabitCheck={() => alert('Habit tracking coming soon!')}
+          points={points}
+          level={level}
+        />} />
+        <Route path="/todos" element={<TodosPage
+          todos={todos}
+          addTodo={addTodo}
+          editTodo={editTodo}
+          deleteTodo={deleteTodo}
+          toggleCompletion={toggleCompletion}
+          search={search}
+          setSearch={setSearch}
+          sort={sort}
+          setSort={setSort}
+          filter={filter}
+          setFilter={setFilter}
+          clearCompleted={clearCompleted}
+        />} />
+        <Route path="/habits" element={<HabitsPage habits={null} onHabitCheck={() => alert('Habit tracking coming soon!')} />} />
+        <Route path="/calendar" element={<CalendarPage todos={todos} habits={(() => { try { return JSON.parse(localStorage.getItem('habits')) || []; } catch { return []; } })()} />} />
         <Route path="/gamify" element={null} />
         <Route path="/settings" element={null} />
       </Routes>
