@@ -17,8 +17,8 @@ import ScrollProgressBar from './components/ScrollProgressBar';
 import todosHero from './assets/todos-hero.png';
 import habitsHero from './assets/habits-hero.png';
 import calendarHero from './assets/calendar-hero.png';
-import Footer from './components/Footer';
 import PlannerPage from './pages/PlannerPage';
+import Footer from './components/Footer';
 
 const SUGGESTIONS = [
   'Drink a glass of water',
@@ -42,7 +42,7 @@ const QUOTES = [
   'Dream big. Start small. Act now.',
   'Your future is created by what you do today, not tomorrow.',
   'It always seems impossible until it’s done.',
-  'Push yourself, because no one else is going to do it for you.'
+ 
 ];
 const MASCOT_TIPS = [
   'Tip: Use the voice button to add tasks hands-free!',
@@ -203,7 +203,7 @@ function App() {
             <Hero />
             {/* Feature Section - outside Dashboard */}
             <div className="feature-section">
-              {/* Todos Feature - image left, text right */}
+              {/* Todos Feature */}
               <div className="feature-row feature-todos">
                 <div className="feature-img-col">
                   <img src={todosHero} alt="Todos" className="feature-img todos-img" />
@@ -227,7 +227,7 @@ function App() {
                   <img src={habitsHero} alt="Habits" className="feature-img habits-img" />
                 </div>
               </div>
-              {/* Calendar Feature - image left, text right */}
+              {/* Calendar Feature */}
               <div className="feature-row feature-calendar">
                 <div className="feature-img-col">
                   <img src={calendarHero} alt="Calendar" className="feature-img calendar-img" />
@@ -240,7 +240,6 @@ function App() {
                 </div>
               </div>
             </div>
-            <Footer />
             {/* Dashboard and feature sections below */}
             <ScrollRevealSection>
                 {/* <Dashboard
@@ -289,7 +288,7 @@ function App() {
               points={points}
               level={level}
             />
-            <Footer />
+            
           </>
         } />
         <Route path="/todos" element={<TodosPage
@@ -308,29 +307,11 @@ function App() {
         />} />
         <Route path="/habits" element={<HabitsPage habits={null} onHabitCheck={() => alert('Habit tracking coming soon!')} />} />
         <Route path="/calendar" element={<CalendarPage todos={todos} habits={(() => { try { return JSON.parse(localStorage.getItem('habits')) || []; } catch { return []; } })()} />} />
-        <Route path="/gamify" element={null} />
+        <Route path="/planner" element={<PlannerPage/>} />
         <Route path="/settings" element={null} />
-        <Route
-          path="/planner"
-          element={
-            <PlannerPage
-              todos={todos}
-              addTodo={addTodo}
-              editTodo={editTodo}
-              deleteTodo={deleteTodo}
-              moveTodo={
-                (id, dueDate) => {
-                  // You may need to implement this logic if not present
-                  const todo = todos.find(t => t._id === id);
-                  if (!todo) return;
-                  editTodo(id, todo.title, dueDate, todo.priority);
-                }
-              }
-            />
-          }
-        />
       </Routes>
       <ScrollProgressBar />
+      <Footer/>
       {/* <ScrollFloatingOrb /> */}
     </BrowserRouter>
   );
