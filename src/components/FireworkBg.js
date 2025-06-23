@@ -33,7 +33,7 @@ const FireworkBg = () => {
       this.targetY = 80 + Math.random() * (canvas.height * 0.4);
       this.color = randomColor();
       this.radius = 2 + Math.random() * 2;
-      this.speed = 1.5 + Math.random() * 1.5; // Slightly faster than slow version
+      this.speed = 1.5 + Math.random() * 0.5; // Slightly faster than slow version
       this.exploded = false;
       this.sparkle = Math.random() > 0.5;
     }
