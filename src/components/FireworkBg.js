@@ -154,7 +154,7 @@ const FireworkBg = () => {
         top: 0,
         width: '100vw',
         height: '100vh',
-        zIndex: 0,
+        zIndex: -1,
         pointerEvents: 'none',
         filter: 'blur(0.5px) brightness(1.1)'
       }}
